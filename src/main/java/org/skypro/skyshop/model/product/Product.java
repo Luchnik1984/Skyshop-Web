@@ -3,13 +3,16 @@ package org.skypro.skyshop.model.product;
 import org.skypro.skyshop.model.search.Searchable;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public abstract class Product implements Searchable, Comparable<Product> {
 
     private final String productName;
+    private final UUID id;
 
 
-    public Product(String productName) {
+    public Product(String productName, UUID id) {
+        this.id = id;
         if (productName == null) {
             throw new IllegalArgumentException("Продукт без названия или продукт отсутствует!");
         }
@@ -22,6 +25,11 @@ public abstract class Product implements Searchable, Comparable<Product> {
 
     public String getProductName() {
         return productName;
+    }
+
+    @Override
+    public UUID getId() {
+        return this.id;
     }
 
     public abstract int getCostOfProduct();
@@ -62,7 +70,6 @@ public abstract class Product implements Searchable, Comparable<Product> {
         if (lengthCompare != 0) {
             return lengthCompare;
         }
-
         return this.productName.compareTo(other.productName);
     }
 }
