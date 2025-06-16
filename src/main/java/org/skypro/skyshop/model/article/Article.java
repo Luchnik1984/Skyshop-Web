@@ -13,10 +13,10 @@ public class Article implements Searchable, Comparable<Article> {
     private final UUID id;
 
 
-    public Article(String articleTitle, String articleContent, UUID id) {
+    public Article(UUID id, String articleTitle, String articleContent) {
+        this.id = id;
         this.articleTitle = articleTitle;
         this.articleContent = articleContent;
-        this.id = id;
     }
 
     @Override
@@ -50,12 +50,12 @@ public class Article implements Searchable, Comparable<Article> {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Article article = (Article) o;
-        return Objects.equals(articleTitle, article.articleTitle);
+        return Objects.equals(id, article.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(articleTitle, articleContent);
+        return Objects.hash(id);
     }
 
     @Override

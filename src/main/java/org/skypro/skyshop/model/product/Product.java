@@ -11,25 +11,24 @@ public abstract class Product implements Searchable, Comparable<Product> {
     private final UUID id;
 
 
-    public Product(String productName, UUID id) {
+    public Product(UUID id, String productName) {
         this.id = id;
+        this.productName = productName;
         if (productName == null) {
             throw new IllegalArgumentException("Продукт без названия или продукт отсутствует!");
         }
         if (productName.isBlank()) {
             throw new IllegalArgumentException("Название продукта не может быть пустой строкой!");
         }
-        this.productName = productName;
-
-    }
-
-    public String getProductName() {
-        return productName;
     }
 
     @Override
     public UUID getId() {
         return this.id;
+    }
+
+    public String getProductName() {
+        return productName;
     }
 
     public abstract int getCostOfProduct();
@@ -51,12 +50,12 @@ public abstract class Product implements Searchable, Comparable<Product> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(productName, product.productName);
+        return Objects.equals(id, product.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(productName);
+        return Objects.hashCode(id);
     }
 
     @Override
