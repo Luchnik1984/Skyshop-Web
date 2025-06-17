@@ -16,7 +16,7 @@ public class FixPriceProduct extends Product {
 
     @Override
     public String toString() {
-        return  "id: "+super.getId()+
+        return
                 "< продукт c фиксированной ценой: " + super.getProductName() + " > :" +
                 "  Фиксированная цена: < " + FIXED_PRISE + " руб >";
     }

@@ -22,18 +22,24 @@ public class StorageService {
         initializeData();
 
     }
+    private void addProduct(Product product){
+        products.put(product.getId(),product);
+    }
+    private void addArticle(Article article) {
+        articles.put(article.getId(), article);
+    }
 
     private void initializeData(){
-        products.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(),"яблоки", 150));
-        products.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(),"бананы", 100));
-        products.put(UUID.randomUUID(), new SimpleProduct(UUID.randomUUID(),"Хлеб", 70));
-        products.put(UUID.randomUUID(), new DiscountedProduct(UUID.randomUUID(),"колбаса", 800, 20));
-        products.put(UUID.randomUUID(), new  FixPriceProduct(UUID.randomUUID(),"яйца"));
-        products.put(UUID.randomUUID(), new FixPriceProduct(UUID.randomUUID(),"молоко"));
+       addProduct( new SimpleProduct(UUID.randomUUID(),"яблоки", 150));
+       addProduct( new SimpleProduct(UUID.randomUUID(),"бананы", 100));
+       addProduct( new SimpleProduct(UUID.randomUUID(),"Хлеб", 70));
+       addProduct( new DiscountedProduct(UUID.randomUUID(),"колбаса", 800, 20));
+       addProduct( new  FixPriceProduct(UUID.randomUUID(),"яйца"));
+       addProduct( new FixPriceProduct(UUID.randomUUID(),"молоко"));
 
-        articles.put(UUID.randomUUID(), new Article(UUID.randomUUID(),"Яблоки сорта Гольден",
+       addArticle( new Article(UUID.randomUUID(),"Яблоки сорта Гольден",
                 "Жёлтые яблоки с мягким, сладким вкусом и сочной текстурой"));
-        articles.put(UUID.randomUUID(), new Article(UUID.randomUUID(),"Колбаса - Салями Миланская",
+       addArticle( new Article(UUID.randomUUID(),"Колбаса - Салями Миланская",
                 "Салями Миланская - отличный вариант для сервировки мясной нарезки праздничного стола"));
             }
 

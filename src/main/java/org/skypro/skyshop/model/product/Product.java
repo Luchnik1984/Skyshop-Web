@@ -2,6 +2,8 @@ package org.skypro.skyshop.model.product;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.skypro.skyshop.model.search.Searchable;
+import org.springframework.lang.NonNull;
+
 import java.util.Objects;
 import java.util.UUID;
 
@@ -63,10 +65,7 @@ public abstract class Product implements Searchable, Comparable<Product> {
     @Override
     public int compareTo(Product other) {
         if (other == null) return -1;
-        if (this.productName == null && other.productName == null) return 0;
-        if (this.productName == null) return 1;
         if (other.productName == null) return -1;
-
         int lengthCompare = Integer.compare(other.productName.length(), this.productName.length());
         if (lengthCompare != 0) {
             return lengthCompare;

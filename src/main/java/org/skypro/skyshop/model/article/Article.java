@@ -5,7 +5,7 @@ import org.skypro.skyshop.model.search.Searchable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class Article implements Searchable, Comparable<Article> {
+public class Article implements Searchable {
 
     private final String articleTitle;
     private final String articleContent;
@@ -59,17 +59,5 @@ public class Article implements Searchable, Comparable<Article> {
         return Objects.hash(id);
     }
 
-    @Override
-    public int compareTo(Article other) {
-        if (other == null) return -1;
-        if (this.articleTitle == null && other.articleTitle == null) return -1;
-        if (this.articleTitle == null) return 1;
-        if (other.articleTitle == null) return -1;
-        int lengthCompare = Integer.compare(other.articleTitle.length(), this.articleTitle.length());
-        if (lengthCompare != 0) {
-            return lengthCompare;
-        }
-        return this.articleTitle.compareTo(other.articleTitle);
     }
-}
 

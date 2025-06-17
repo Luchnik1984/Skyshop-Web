@@ -19,7 +19,7 @@ public class SimpleProduct extends Product{
 
     @Override
     public String toString() {
-        return "id: "+super.getId()+
+        return
                 " < продукт: "+super.getProductName()+  " > :" +
                 " < стоимость: "+getCostOfProduct()+ " руб >";
 
