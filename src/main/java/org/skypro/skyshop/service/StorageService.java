@@ -5,6 +5,7 @@ import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
 import org.skypro.skyshop.model.product.SimpleProduct;
+import org.skypro.skyshop.model.search.Searchable;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
@@ -42,5 +43,12 @@ public class StorageService {
 
     public Collection<Article> getAllArticles() {
         return Collections.unmodifiableCollection(articles.values());
+    }
+
+    public Collection<Searchable> getAllSearchables(){
+        Collection<Searchable> result = new ArrayList<>();
+        result.addAll(products.values());
+        result.addAll(articles.values());
+        return result;
     }
 }
