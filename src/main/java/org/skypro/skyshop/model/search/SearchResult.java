@@ -2,6 +2,7 @@ package org.skypro.skyshop.model.search;
 
 import java.util.Objects;
 import java.util.UUID;
+
 public final class SearchResult {
     private final UUID id;
     private final String name;
@@ -13,7 +14,7 @@ public final class SearchResult {
         this.contentType = contentType;
     }
 
-    public static SearchResult fromSearchable (Searchable searchable){
+    public static SearchResult fromSearchable(Searchable searchable) {
         return new SearchResult(
                 searchable.getId(),
                 searchable.getProductName(),

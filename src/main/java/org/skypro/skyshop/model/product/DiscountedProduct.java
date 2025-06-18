@@ -7,8 +7,8 @@ public class DiscountedProduct extends Product {
     public int discountInWholePercentages;
 
 
-    public DiscountedProduct(UUID id,String productName, int basePrice, int discountInWholePercentages) {
-        super(id,productName);
+    public DiscountedProduct(UUID id, String productName, int basePrice, int discountInWholePercentages) {
+        super(id, productName);
         if (basePrice <= 0) {
             throw new IllegalArgumentException("Цена продукта не является положительным числом. Недопустимая цена!");
         }
@@ -28,8 +28,8 @@ public class DiscountedProduct extends Product {
     public String toString() {
         return
                 "< продукт со скидкой: " + super.getProductName() + " > :" +
-                " < стоимость: " + getCostOfProduct() + " руб >" +
-                " (< скидка " + discountInWholePercentages + " >%)";
+                        " < стоимость: " + getCostOfProduct() + " руб >" +
+                        " (< скидка " + discountInWholePercentages + " >%)";
     }
 
     @Override

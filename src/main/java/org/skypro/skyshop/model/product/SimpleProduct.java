@@ -1,13 +1,14 @@
 package org.skypro.skyshop.model.product;
+
 import java.util.UUID;
 
-public class SimpleProduct extends Product{
+public class SimpleProduct extends Product {
     public int costOfProduct;
 
-    public SimpleProduct(UUID id,String productName, int costOfProduct) {
-        super(id,productName);
+    public SimpleProduct(UUID id, String productName, int costOfProduct) {
+        super(id, productName);
         this.costOfProduct = costOfProduct;
-               if (costOfProduct<=0){
+        if (costOfProduct <= 0) {
             throw new IllegalArgumentException("Цена продукта не является положительным числом. Недопустимая цена!");
         }
     }
@@ -20,8 +21,8 @@ public class SimpleProduct extends Product{
     @Override
     public String toString() {
         return
-                " < продукт: "+super.getProductName()+  " > :" +
-                " < стоимость: "+getCostOfProduct()+ " руб >";
+                " < продукт: " + super.getProductName() + " > :" +
+                        " < стоимость: " + getCostOfProduct() + " руб >";
 
     }
 
