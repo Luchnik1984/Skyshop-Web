@@ -1,5 +1,6 @@
 package org.skypro.skyshop.service;
 
+import org.apache.el.stream.Optional;
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
@@ -58,5 +59,9 @@ public class StorageService {
         result.addAll(products.values());
         result.addAll(articles.values());
         return result;
+    }
+
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
     }
 }
