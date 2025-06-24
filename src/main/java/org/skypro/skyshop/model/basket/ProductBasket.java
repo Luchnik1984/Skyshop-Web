@@ -1,13 +1,17 @@
 package org.skypro.skyshop.model.basket;
 
-import org.springframework.web.context.annotation.SessionScope;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.stereotype.Component;
+
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.Collections;
 
-@SessionScope
+@Component
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProductBasket {
     private final Map<UUID, Integer> products = new HashMap<>();
 
