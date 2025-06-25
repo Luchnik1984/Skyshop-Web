@@ -1,15 +1,16 @@
 package org.skypro.skyshop.service;
 
-import org.skypro.skyshop.model.basket.BasketItem;
-import org.skypro.skyshop.model.basket.ProductBasket;
-import org.skypro.skyshop.model.basket.UserBasket;
+import org.skypro.skyshop.model.basket.*;
 import org.skypro.skyshop.model.product.Product;
+import org.springframework.stereotype.Service;
 
+import java.util.*;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Service
 public class BasketService {
     private final ProductBasket productBasket;
     private final StorageService storageService;
@@ -20,9 +21,10 @@ public class BasketService {
     }
 
     public void addToBasket(UUID productId) {
-        Product product = storageService.getProductById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Продукт с ID "
-                        + productId + " не найден"));
+        if (storageService.getProductById(productId).isEmpty()) {
+            throw new IllegalArgumentException("Продукт с ID "
+                    + productId + " не найден");
+        }
         productBasket.addProduct(productId);
     }
 
@@ -31,9 +33,13 @@ public class BasketService {
         List<BasketItem> items = basketContents.entrySet().stream()
                 .map(entry -> {
                     Product product = storageService.getProductById(entry.getKey())
-                            .orElseThrow(() -> new IllegalArgumentException("Продукт не найден в корзине"));
+                            .orElseThrow(() -> new IllegalArgumentException("Продукт " + entry.getKey() + " не найден в корзине"));
                     return new BasketItem(product, entry.getValue());
                 })
+                .sorted(Comparator.comparing(
+                        item -> item.getProduct().getProductName(),
+                        String.CASE_INSENSITIVE_ORDER
+                ))
                 .collect(Collectors.toList());
         return new UserBasket(items);
 
