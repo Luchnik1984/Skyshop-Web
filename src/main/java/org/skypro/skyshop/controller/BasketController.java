@@ -19,18 +19,19 @@ public class BasketController {
 
     public BasketController(BasketService basketService, StorageService storageService) {
         this.basketService = basketService;
-        this.storageService =storageService;
+        this.storageService = storageService;
     }
+
     @GetMapping("/{id}")
-    public String addProduct(@PathVariable("id") UUID id){
+    public String addProduct(@PathVariable("id") UUID id) {
         basketService.addToBasket(id);
         Product product = storageService.getProductById(id)
                 .orElseThrow();
-        return "Продукт "+ product.getProductName() +" успешно добавлен.";
+        return "Продукт " + product.getProductName() + " успешно добавлен.";
     }
 
     @GetMapping
-    public UserBasket getUserBasket(){
+    public UserBasket getUserBasket() {
         return basketService.getUserBasket();
     }
 }
