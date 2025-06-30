@@ -25,8 +25,7 @@ public class BasketController {
     @GetMapping("/{id}")
     public String addProduct(@PathVariable("id") UUID id) {
         basketService.addToBasket(id);
-        Product product = storageService.getProductById(id)
-                .orElseThrow();
+        Product product = storageService.getProductOrThrow(id);
         return "Продукт " + product.getProductName() + " успешно добавлен.";
     }
 

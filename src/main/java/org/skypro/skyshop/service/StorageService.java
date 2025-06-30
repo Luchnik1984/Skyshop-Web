@@ -3,6 +3,7 @@ package org.skypro.skyshop.service;
 import java.util.Optional;
 
 import org.skypro.skyshop.model.article.Article;
+import org.skypro.skyshop.model.exeptions.NoSuchProductException;
 import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
@@ -65,4 +66,10 @@ public class StorageService {
     public Optional<Product> getProductById(UUID id) {
         return Optional.ofNullable(products.get(id));
     }
+
+    public Product getProductOrThrow(UUID id) {
+        return getProductById(id)
+                .orElseThrow(() -> new NoSuchProductException(id));
+    }
 }
+
