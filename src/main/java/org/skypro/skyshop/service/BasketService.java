@@ -21,7 +21,7 @@ public class BasketService {
     }
 
     public void addToBasket(UUID productId) {
-       storageService.getProductOrThrow(productId);
+        storageService.getProductOrThrow(productId);
         productBasket.addProduct(productId);
     }
 
