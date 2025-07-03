@@ -21,10 +21,7 @@ public class BasketService {
     }
 
     public void addToBasket(UUID productId) {
-        if (storageService.getProductById(productId).isEmpty()) {
-            throw new IllegalArgumentException("Продукт с ID "
-                    + productId + " не найден");
-        }
+        storageService.getProductOrThrow(productId);
         productBasket.addProduct(productId);
     }
 
