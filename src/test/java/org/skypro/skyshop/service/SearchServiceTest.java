@@ -31,22 +31,39 @@ import static org.mockito.Mockito.*;
     private SearchService searchService;
 
 
-    // Вспомогательный метод для создания тестовых продуктов
-    private List<Product> createTestProducts() {
+//    // Вспомогательный метод для создания тестовых продуктов
+//    private List<Product> createTestProducts() {
+//        return List.of(
+//                new SimpleProduct(UUID.randomUUID(),"simpleTestProduct", 80),
+//                new DiscountedProduct(UUID.randomUUID(),"discountedTestProduct", 40,20),
+//                new FixPriceProduct(UUID.randomUUID(),"fixPriceTestProduct")
+//        );
+//    }
+//
+//    // Вспомогательный метод для создания тестовых статей
+//    private List<Article> createTestArticles() {
+//        return List.of(
+//                new Article(UUID.randomUUID(),"testArticle1", "testContent1"),
+//                new Article(UUID.randomUUID(),"testArticle2", "testContent12")
+//        );
+//    }
+private Product createTestProduct(String name, int price) {
+    return new SimpleProduct(UUID.randomUUID(), name, price);
+}
+
+    private Article createTestArticle(String title, String content) {
+        return new Article(UUID.randomUUID(), title, content);
+    }
+
+    private List<Searchable> createMixedSearchables() {
         return List.of(
-                new SimpleProduct(UUID.randomUUID(),"simpleTestProduct", 80),
-                new DiscountedProduct(UUID.randomUUID(),"discountedTestProduct", 40,20),
-                new FixPriceProduct(UUID.randomUUID(),"fixPriceTestProduct")
+                createTestProduct("Молоко", 80),
+                createTestProduct("Хлеб", 40),
+                createTestArticle("О молоке", "Статья о пользе молока"),
+                createTestArticle("Выпечка", "Рецепты домашнего хлеба")
         );
     }
 
-    // Вспомогательный метод для создания тестовых статей
-    private List<Article> createTestArticles() {
-        return List.of(
-                new Article(UUID.randomUUID(),"testArticle1", "testContent1"),
-                new Article(UUID.randomUUID(),"testArticle2", "testContent12")
-        );
-    }
     @Test
     void search_shouldReturnEmptyList_whenStorageIsEmpty() {
         // Устанавливаем поведение мока
