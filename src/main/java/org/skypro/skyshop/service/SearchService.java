@@ -4,6 +4,7 @@ import org.skypro.skyshop.model.search.SearchResult;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,6 +16,10 @@ public class SearchService {
     }
 
     public Collection<SearchResult> search(String pattern) {
+        // Ранний возврат для null или пустого pattern
+        if (pattern == null || pattern.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
         return storageService.getAllSearchables().stream()
                 .filter(searchable -> containsIgnoreCase(searchable.getProductName(), pattern))
                 .map(SearchResult::fromSearchable)
