@@ -1,5 +1,6 @@
 package org.skypro.skyshop.service;
 
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,6 +19,10 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
+
+
+
 
 @ExtendWith(MockitoExtension.class)
 public class SearchServiceTest {
@@ -42,13 +47,17 @@ public class SearchServiceTest {
     @Test
     public void search_WhenNoObjectsInStorage_ReturnsEmptyList() {
         // Подготовка
+        // Настраиваем заглушку. При вызове метода возвращаем пустой список.
         when(storageService.getAllSearchables()).thenReturn(Collections.emptyList());
 
         // Действие
+        // Сохраняем результат поиска запроса по пустому списку в коллекцию
         Collection<SearchResult> results = searchService.search("яблоки");
 
         // Проверка
+        // Проверяем, действительно ли коллекция с результатом поиска пустая. Результат поиска отсутствует.
         assertTrue(results.isEmpty());
+        // Проверяем что метод был вызван 1 раз
         verify(storageService, times(1)).getAllSearchables();
     }
 
@@ -56,16 +65,21 @@ public class SearchServiceTest {
     @Test
     public void search_WhenNoMatchingObjects_ReturnsEmptyList() {
         // Подготовка
+        // Создаём продукт и статью для теста с помощью вспомогательных методов.
+        // Настраиваем заглушку. При вызове метода возвращаем список из созданного ранее продукта и статьи
         Product product = createTestProduct("бананы");
         Article article = createTestArticle("Колбаса");
         when(storageService.getAllSearchables())
                 .thenReturn(Arrays.asList(product, article));
 
         // Действие
+        // Сохраняем результат поиска запроса по запросу, у которого нет совпадения с созданным списком в коллекцию
         Collection<SearchResult> results = searchService.search("яблоки");
 
         // Проверка
+        // Проверяем, действительно ли коллекция с результатом поиска пустая. Результат поиска отсутствует.
         assertTrue(results.isEmpty());
+        // Проверяем что метод был вызван 1 раз
         verify(storageService, times(1)).getAllSearchables();
     }
 
@@ -82,9 +96,14 @@ public class SearchServiceTest {
         Collection<SearchResult> results = searchService.search("яблок");
 
         // Проверка
+        // Проверяем что результат получившейся коллекции равен 1
         assertEquals(1, results.size());
+        // Извлекаем с помощью итератора элемент коллекции.
+        // Присваиваем переменной возвращённый объект типа SearchResult
         SearchResult result = results.iterator().next();
-        assertEquals("яблоки", result.getName());
+        // Проверяем что имя продукта, найденного в результате поиска, соответствует ожидаемому значению
+        assertEquals(matchingProduct.getProductName(), result.getName());
+        // Проверяем что метод был вызван 1 раз
         verify(storageService, times(1)).getAllSearchables();
     }
 
@@ -92,11 +111,12 @@ public class SearchServiceTest {
     @Test
     public void search_WhenMultipleMatchingObjects_ReturnsAllResults() {
         // Подготовка
-        Product product1 = createTestProduct("яблоки Гольден");
-        Product product2 = createTestProduct("зелёные яблоки");
-        Article article = createTestArticle("Статья про яблоки");
+        Product matchingProduct1 = createTestProduct("яблоки Гольден");
+        Product matchingProduct2 = createTestProduct("зелёные яблоки");
+        Article matchingArticle = createTestArticle("Статья про яблоки");
+        Article nonMatchingArticle = createTestArticle("Статья про яблоНи");
         when(storageService.getAllSearchables())
-                .thenReturn(Arrays.asList(product1, product2, article));
+                .thenReturn(Arrays.asList(matchingProduct1, matchingProduct2, matchingArticle,nonMatchingArticle));
 
         // Действие
         Collection<SearchResult> results = searchService.search("яблок");
